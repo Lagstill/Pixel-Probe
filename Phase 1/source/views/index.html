@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Retrieval</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="title-01">
+        <h1>CONTENT BASED IMAGE RETREIVAL</h1>
+    </div>
+    <div class="nav">
+        <ul>
+            <li><a href="/">Search with a caption</a></li>
+            <li><a href="contentbased.html">Search with an image</a></li>
+        </ul>
+    </div>
+
+    <div class="wrap">
+        <form action="/text-based_query" method="post" enctype="multipart/form-data">
+            <div class="search">
+                <input type="text" name="query" class="searchTerm" placeholder="What are you looking for?">
+                <button type="submit" class="searchButton" title="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        {% if output %}
+            <div>
+                <div class="paragraph">
+                    <p>Your query: "{{ output.query }}"
+                        <br><br> 10 images retrieved in {{ output.running_time }}
+                    </p>
+                </div> 
+                <div class="img-res">
+                {% for i in output.image_name %}
+                    <img src="{{ url_for('static', path=i) }}" width="112", height="150">
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
